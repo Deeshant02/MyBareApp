@@ -1,0 +1,6 @@
+1. for running android emulator devices want to install android studio and java on the mac.
+2. and for ios emulator want to install xcode.
+3. SafeAreaView only works for the ios devices but not working for android device for also working on android we want to use 'react-native-safe-area-context' this module.
+4. '@react-native-async-storage/async-storage' to store data inside mobile device persistent storage to hold access token and those things.
+5. 'lodash' for performing js operations.
+6. '@react-navigation/native' & '@react-navigation/native-stack' for navigation.
