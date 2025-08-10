@@ -4,3 +4,6 @@
 4. '@react-native-async-storage/async-storage' to store data inside mobile device persistent storage to hold access token and those things.
 5. 'lodash' for performing js operations.
 6. '@react-navigation/native' & '@react-navigation/native-stack' for navigation.
+7. 'npm install @react-native-vector-icons/fontisto' for icons in react native cli project.
+8. '@react-native-community/datetimepicker' for datepicker and time picker.
+9. 

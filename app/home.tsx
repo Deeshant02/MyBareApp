@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
-import { goBack } from '../services/api/navigation-service';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { goBack, navigate } from '../services/api/navigation-service';
 import { getAsyncStorage, getProfile, setAsyncStorage } from '../services/api/api-helper-service';
 
 class HomeComponent extends Component {
@@ -33,7 +33,7 @@ class HomeComponent extends Component {
         }
         if (isCallApi) {
             getProfile().then((data: any) => {
-                setAsyncStorage('user', 'data');
+                setAsyncStorage('user', JSON.stringify(data));
                 this.setState({ currCenter: data?.centers[0] });
                 console.log(data);
             })
@@ -58,9 +58,11 @@ class HomeComponent extends Component {
                                 <Text style={styles.centerCodeText}>{`[${this.state.currCenter?.code}] ${this.state.currCenter?.address?.village}, ${this.state.currCenter?.address?.taluka}, ${this.state.currCenter?.address?.district}, ${this.state.currCenter?.address?.pincode}`}</Text>
                             </View>
                         </View>
-                        <View>
-                            <View style={styles.appIcon}></View>
-                            <Text>Collection</Text>
+                        <View style={styles.appIconContainer}>
+                            <TouchableOpacity onPress={() => navigate('Collection')}>
+                                <View style={styles.appIcon}></View>
+                                <Text style={styles.appNameText}>Collection</Text>
+                            </TouchableOpacity>
                         </View>
                     </View>
                 </View>
@@ -98,12 +100,23 @@ const styles = StyleSheet.create({
         fontSize: 10,
         color: '#3d8e83'
     },
+    appIconContainer: {
+        paddingVertical: 30,
+        paddingHorizontal: 30,
+    },
     appIcon: {
-        backgroundColor: 'orange',
-        height: 50,
-        width: 50,
-        borderRadius: 50
-    }
+        backgroundColor: 'white',
+        borderRadius: 50,
+        height: 60,
+        width: 60,
+        elevation: 5,
+    },
+    appNameText: {
+        paddingVertical: 10,
+        fontSize: 16,
+        fontWeight: 400,
+        color: '#393185',
+    },
 });
 
 export default HomeComponent;

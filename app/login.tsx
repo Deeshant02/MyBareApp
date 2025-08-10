@@ -31,7 +31,7 @@ class MyClassComponent extends Component {
     loginUser(this.state).then((data: any) => {
       console.log(data);
       this.setAccessToken(data?.token);
-      navigate('Home', { userId: 123 });
+      navigate('Home');
     })
   }
 
