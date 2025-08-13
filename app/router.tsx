@@ -10,7 +10,7 @@ const Stack = createNativeStackNavigator();
 
 function RootStack() {
     return (
-        <Stack.Navigator initialRouteName="Collection">
+        <Stack.Navigator initialRouteName="Login">
             <Stack.Screen name="Login" component={MyClassComponent} options={{ headerShown: false }} />
             <Stack.Screen name="Home" component={HomeComponent} options={{ headerShown: false }} />
             <Stack.Screen name="Collection" component={CollectionComponent} options={{ headerShown: false }} />

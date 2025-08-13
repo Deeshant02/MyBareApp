@@ -38,6 +38,16 @@ export function getProfile() {
   return get(loginUrl);
 }
 
+export function getCustomerSync(timestamp: number) {
+  const getCustomerSyncUrl = getApiUrl(`api/v1/customer_sync/?since=${timestamp}&src=amd&lan=en`);
+  return get(getCustomerSyncUrl);
+}
+
+export function getCollectionSync(timestamp: number) {
+  const getCustomerSyncUrl = getApiUrl(`api/v2/collection_sync/?since=${timestamp}&src=amd&lan=en`);
+  return get(getCustomerSyncUrl);
+}
+
 export function getCollectionsApi(reqObj: any) {
   const collectionUrl = getApiUrl(
     `api/v2/collection/?center=${reqObj?.center}&customer_info=${reqObj?.customer_info}&date=${reqObj?.date}

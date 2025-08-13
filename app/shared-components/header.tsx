@@ -1,7 +1,8 @@
 import Fontisto from "@react-native-vector-icons/fontisto";
 import { useEffect, useState } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, Pressable } from "react-native";
 import { getAsyncStorage } from "../../services/api/api-helper-service";
+import { goBack } from "../../services/api/navigation-service";
 
 type HeaderProps = {
     title: string;
@@ -14,7 +15,6 @@ export default function Header(props: HeaderProps) {
         const fetchUser = async () => {
             let userData: any = await getAsyncStorage('user');
             userData = JSON.parse(userData);
-            console.log(userData);
             setCenterName(userData?.centers[0]?.name_en);
         };
 
@@ -25,7 +25,11 @@ export default function Header(props: HeaderProps) {
         <>
             <View style={styles.header}>
                 <View style={styles.leftSideHeader}>
-                    <Fontisto name="arrow-left" color="white" size={15} />
+                    <View>
+                        <Pressable onPress={() => goBack()}>
+                            <Fontisto name="arrow-left" color="white" size={15} />
+                        </Pressable>
+                    </View>
                     <View style={styles.titleContainer}>
                         <Text style={styles.title}>{props?.title}</Text>
                         <Text style={styles.centerName}>{centerName}</Text>

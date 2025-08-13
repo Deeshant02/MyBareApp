@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { goBack, navigate } from '../services/api/navigation-service';
-import { getAsyncStorage, getProfile, setAsyncStorage } from '../services/api/api-helper-service';
-
+import { getAsyncStorage, getCollectionSync, getCustomerSync, getProfile, setAsyncStorage } from '../services/api/api-helper-service';
+import dbServiceInstance from '../services/db/db-instance-service';
+import { createCollectionsTable, createCustomersTable, getCollectinsTableData, getCustomersTableData, removeAllCollections, syncCollectionsData, syncCustomersData } from '../services/db/db-helper-service';
+import DbService from '../services/db/db-instance-service';
 class HomeComponent extends Component {
     state = {currCenter: {
             name_en: '',
@@ -13,7 +15,8 @@ class HomeComponent extends Component {
                 state: "",
                 pincode: ""
             },
-            code: ''
+            code: '',
+            id: -1
         }
     };
     constructor(props: any, isCallApi: boolean = true) {
@@ -28,16 +31,58 @@ class HomeComponent extends Component {
                     state: "",
                     pincode: ""
                 },
-                code: ''
+                code: '',
+                id: -1
             }
         }
-        if (isCallApi) {
-            getProfile().then((data: any) => {
-                setAsyncStorage('user', JSON.stringify(data));
-                this.setState({ currCenter: data?.centers[0] });
-                console.log(data);
-            })
+
+        if (isCallApi || true) {
+            this.syncDb();
         }
+    }
+
+    async syncDb() {
+        getProfile().then(async (data: any) => {
+            setAsyncStorage('user', JSON.stringify(data));
+            this.setState({ currCenter: data?.centers[0] });
+            setAsyncStorage('center_assigned', data?.centers[0]?.id?.toString());
+            console.log(this.state?.currCenter?.id?.toString());
+
+            // await dbServiceInstance.init(); // ensure DB is ready
+
+            // const dbConnection = await dbServiceInstance.getDbConnectionInstance();
+            // console.log(dbServiceInstance);
+            const dbService = DbService.getInstance(); // always same object
+            await dbService.init(); // opens connection only once
+            const dbConnection = dbService.getConnection();
+
+            console.log('DB is:', dbConnection);
+            console.log('DB executeSql exists?', typeof dbConnection.executeSql);
+
+            getCustomerSync(0).then(async (data: any) => {
+                console.log(data);
+                await createCustomersTable(dbConnection);
+
+                const dbCustomersDataList = await getCustomersTableData(dbConnection);
+
+                await syncCustomersData(dbConnection, dbCustomersDataList, data?.add);
+
+                getCollectionSync(0).then(async (data: any) => {
+                    await createCollectionsTable(dbConnection);
+
+                    await removeAllCollections(dbConnection);
+
+                    const dbCollectionsDataList = await getCollectinsTableData(dbConnection);
+
+                    await syncCollectionsData(dbConnection, dbCollectionsDataList, data?.add);
+                })
+            })
+        })
+
+        // const today = new Date();  
+        // today.setHours(0, 0, 0, 0); // set to 12 AM
+        // const timestamp = today.getTime(); // milliseconds since Unix epoch
+        // console.log(timestamp);
     }
 
     render() {
