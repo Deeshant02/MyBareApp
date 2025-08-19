@@ -7,7 +7,8 @@
 7. 'npm install @react-native-vector-icons/fontisto' for icons in react native cli project.
 8. '@react-native-community/datetimepicker' for datepicker and time picker.
 9. 'npm install --save react-native-sqlite-storage' this lib used for sqlite db.
-10. 
+10. 'react-native-android-location-enabler' this lib used for enabling gps in android devices for turning on bluetooth.
+11. 
 
 
 
@@ -16,4 +17,4 @@
 // command to execute after adding new package in react native application
     cd android && ./gradlew clean
     cd ..
-    npx react-native run-android
+    npx react-native run-android --port 4200

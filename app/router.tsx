@@ -5,6 +5,9 @@ import MyClassComponent from './login';
 import HomeComponent from './home';
 import { navigationRef } from '../services/api/navigation-service';
 import CollectionComponent from './collection';
+import PrinterComponent from './printer';
+import PrinterDetail from './printer-detail';
+import PrintPreview from './print-preview';
 
 const Stack = createNativeStackNavigator();
 
@@ -14,6 +17,9 @@ function RootStack() {
             <Stack.Screen name="Login" component={MyClassComponent} options={{ headerShown: false }} />
             <Stack.Screen name="Home" component={HomeComponent} options={{ headerShown: false }} />
             <Stack.Screen name="Collection" component={CollectionComponent} options={{ headerShown: false }} />
+            <Stack.Screen name="Printer" component={PrinterComponent} options={{ headerShown: false }} />
+            <Stack.Screen name="PrinterDetail" component={PrinterDetail} options={{ headerShown: false }} />
+            <Stack.Screen name="PrintPreview" component={PrintPreview} options={{ headerShown: false }} />
         </Stack.Navigator>
     );
 }

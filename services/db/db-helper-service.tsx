@@ -323,7 +323,7 @@ export async function updateCustomerEntry(dbConnection: any, customerEntry: any)
 
 export async function updateCollectionEntry(dbConnection: any, collectionEntry: any) {
     const updateQuery = `
-        UPDATE milk_entries
+        UPDATE collections
         SET
             date = ?,
             type = ?,

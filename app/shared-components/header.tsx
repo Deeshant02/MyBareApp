@@ -19,7 +19,7 @@ export default function Header(props: HeaderProps) {
         };
 
         fetchUser();
-    })
+    }, [])
 
     return (
         <>

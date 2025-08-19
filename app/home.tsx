@@ -109,6 +109,12 @@ class HomeComponent extends Component {
                                 <Text style={styles.appNameText}>Collection</Text>
                             </TouchableOpacity>
                         </View>
+                        <View style={styles.appIconContainer}>
+                            <TouchableOpacity onPress={() => navigate('Printer')}>
+                                <View style={styles.appIcon}></View>
+                                <Text style={styles.appNameText}>Printer</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </View>
             </>

@@ -9,8 +9,17 @@ import { getCollectinsTableData } from '../services/db/db-helper-service';
 import dbServiceInstance from '../services/db/db-instance-service';
 import DbService from '../services/db/db-instance-service';
 
-class CollectionComponent extends Component {
-    state = {
+type DatePickerMode = 'date' | 'time' | 'datetime';
+
+type CollectionState = {
+    date: Date;
+    mode: DatePickerMode;
+    show: boolean;
+    collectionList: any[];
+};
+
+class CollectionComponent extends Component<{}, CollectionState> {
+    state: CollectionState = {
         date: new Date(),
         mode: 'date',
         show: false,
@@ -155,9 +164,10 @@ class CollectionComponent extends Component {
                         <Text>Accepted: {this.state?.collectionList?.length}</Text>
                         <Fontisto name="zoom" color="black" size={15} />
                     </View>
-                    <FlatList data={this.state?.collectionList}
-                        renderItem={(item: any) => <this.Item rowData={item} 
-                        keyExtractor={(item: any, index: any) => item.id?.toString() || index.toString()}/>}
+                    <FlatList 
+                        data={this.state?.collectionList}
+                        keyExtractor={(item: any, index: any) => item?.id?.toString() || index.toString()}
+                        renderItem={(item: any) => <this.Item rowData={item} />}
                     />
                     {this.state.show && (
                         <DateTimePicker
