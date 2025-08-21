@@ -115,6 +115,12 @@ class HomeComponent extends Component {
                                 <Text style={styles.appNameText}>Printer</Text>
                             </TouchableOpacity>
                         </View>
+                        <View style={styles.appIconContainer}>
+                            <TouchableOpacity onPress={() => navigate('Screenshot')}>
+                                <View style={styles.appIcon}></View>
+                                <Text style={styles.appNameText}>Screenshot</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </View>
             </>

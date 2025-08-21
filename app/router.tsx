@@ -8,6 +8,7 @@ import CollectionComponent from './collection';
 import PrinterComponent from './printer';
 import PrinterDetail from './printer-detail';
 import PrintPreview from './print-preview';
+import Screenshot from './screenshot';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,6 +21,7 @@ function RootStack() {
             <Stack.Screen name="Printer" component={PrinterComponent} options={{ headerShown: false }} />
             <Stack.Screen name="PrinterDetail" component={PrinterDetail} options={{ headerShown: false }} />
             <Stack.Screen name="PrintPreview" component={PrintPreview} options={{ headerShown: false }} />
+            <Stack.Screen name="Screenshot" component={Screenshot} options={{ headerShown: false }} />
         </Stack.Navigator>
     );
 }
